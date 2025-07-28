@@ -1,0 +1,22 @@
+# MySQL Role Default Variables
+
+# MySQL version to install
+mysql_version: "8.0"
+
+# MySQL root password
+mysql_root_password: "your_root_password"
+
+# MySQL database name
+mysql_database_name: "wordpress_db"
+
+# MySQL user for the database
+mysql_user: "wordpress_user"
+
+# MySQL user password
+mysql_user_password: "your_user_password"
+
+# MySQL bind address
+mysql_bind_address: "0.0.0.0"
+
+# MySQL configuration file path
+mysql_config_file: "/etc/mysql/my.cnf"

@@ -1,0 +1,6 @@
+database_name: my_database
+database_user: my_user
+database_password: my_password
+database_host: localhost
+database_port: 3306
+mysql_root_password: root_password

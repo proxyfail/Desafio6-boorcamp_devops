@@ -1,0 +1,60 @@
+- name: Install MySQL server
+  apt:
+    name: mysql-server
+    state: present
+  become: yes
+
+- name: Ensure MySQL service is running
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Set MySQL root password
+  mysql_user:
+    name: root
+    password: "{{ mysql_root_password }}"
+    host: localhost
+    login_user: root
+    login_password: ""
+  become: yes
+
+- name: Create a database
+  mysql_db:
+    name: "{{ mysql_database }}"
+    state: present
+  become: yes
+
+- name: Create a MySQL user
+  mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_user_password }}"
+    host: localhost
+    priv: '*.*:ALL'
+    state: present
+  become: yes
+
+- name: Remove anonymous users
+  mysql_user:
+    name: ''
+    host: localhost
+    state: absent
+  become: yes
+
+- name: Disallow root login remotely
+  mysql_user:
+    name: root
+    host: '{{ item }}'
+    state: absent
+  loop:
+    - 'localhost'
+    - '%'
+  become: yes
+
+- name: Flush privileges
+  mysql_privs:
+    user: root
+    host: localhost
+    priv: '*.*:ALL'
+    state: present
+  become: yes

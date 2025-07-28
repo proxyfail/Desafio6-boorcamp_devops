@@ -1,0 +1,9 @@
+---
+# PHP Handlers for Ansible Role
+
+# This handler will restart the PHP service when notified by tasks.
+- name: Restart PHP service
+  service:
+    name: php7.4-fpm  # Adjust the version as necessary
+    state: restarted
+    enabled: yes

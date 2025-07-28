@@ -1,0 +1,40 @@
+---
+- name: Deploy PHP and MySQL on EC2
+  hosts: all
+  become: true
+  vars:
+    php_version: "7.4"
+    mysql_root_password: "secure_password"
+
+  roles:
+    - php
+    - mysql
+
+  tasks:
+    - name: Ensure PHP is installed
+      include_role:
+        name: php
+
+    - name: Ensure MySQL is installed
+      include_role:
+        name: mysql
+
+    - name: Start services
+      service:
+        name: "{{ item }}"
+        state: started
+      loop:
+        - php7.4-fpm
+        - mysql
+
+    - name: Ensure services are enabled on boot
+      service:
+        name: "{{ item }}"
+        enabled: yes
+      loop:
+        - php7.4-fpm
+        - mysql
+
+    - name: Display installation success message
+      debug:
+        msg: "PHP and MySQL have been successfully installed and configured."

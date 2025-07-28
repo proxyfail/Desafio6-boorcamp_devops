@@ -1,0 +1,32 @@
+- name: Install PHP
+  apt:
+    name: php
+    state: present
+
+- name: Install PHP extensions
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - php-mysql
+    - php-xml
+    - php-mbstring
+    - php-curl
+
+- name: Ensure PHP service is running
+  service:
+    name: php7.4-fpm
+    state: started
+    enabled: yes
+
+- name: Configure PHP settings
+  template:
+    src: php.ini.j2
+    dest: /etc/php/7.4/fpm/php.ini
+  notify: Restart PHP service
+
+- name: Restart PHP service
+  service:
+    name: php7.4-fpm
+    state: restarted
+  when: ansible_service_mgr == 'systemd'

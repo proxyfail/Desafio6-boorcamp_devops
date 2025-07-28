@@ -1,0 +1,11 @@
+- name: Restart MySQL
+  service:
+    name: mysql
+    state: restarted
+  when: mysql_changed
+
+- name: Reload MySQL
+  service:
+    name: mysql
+    state: reloaded
+  when: mysql_config_changed

@@ -1,0 +1,17 @@
+# Default variables for PHP role
+
+php_version: "8.0"
+php_packages:
+  - php
+  - php-cli
+  - php-fpm
+  - php-mysql
+  - php-xml
+  - php-mbstring
+  - php-curl
+  - php-zip
+
+php_fpm_pool_name: "www"
+php_fpm_listen: "/run/php/php{{ php_version }}-fpm.sock"
+php_fpm_user: "www-data"
+php_fpm_group: "www-data"
